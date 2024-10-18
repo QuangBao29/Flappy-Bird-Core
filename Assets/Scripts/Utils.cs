@@ -9,6 +9,19 @@ using System.Threading.Tasks;
 
 public static class Utils
 {
+    static System.Random rand = new System.Random();
+
+    /// <summary>
+    /// random a number between min and max
+    /// </summary>
+    /// <param name="min">The minimum value (inclusive)</param>
+    /// <param name="max">The maximum value (inclusive)</param>
+    /// <returns>random value</returns>
+
+    public static int RandomInt(int min, int max)
+    {
+        return rand.Next(min, max + 1);
+    }
     public static T InstantiateObject<T>(T prefab, Transform parent) where T : Component
     {
         if (prefab != null)
