@@ -4,19 +4,36 @@ using UnityEngine;
 
 public class Pipe : MonoBehaviour
 {
-    public float pipeSpeed;
-    public Sprite pipeSprite;
+    [SerializeField]
+    private GameObject topPipe = null;
+    [SerializeField]
+    private GameObject botPipe = null;
+    [SerializeField]
+    private Sprite pipeSprite = null;
 
-    public GameObject topPipe;
-    public GameObject botPipe;
+    public GameObject TopPipe
+    { get { return topPipe; } }
 
-    void Start()
-    {
+    public GameObject BotPipe 
+    { get { return botPipe; } }
 
-    }
+    public Sprite PipeSprite
+    { get { return pipeSprite; } }
 
     void Update()
     {
-        transform.position += new Vector3(-pipeSpeed * Time.deltaTime, 0, 0);
+        transform.position += new Vector3(-Define.pipeSpeed * Time.deltaTime, 0, 0);
+
+        if (transform.position.x <= GameController.Instance.despawnPipePosition.transform.position.x)
+        {
+            if (!PipeController.Instance.RemoveDespawnPipeFromList(this))
+            {
+                Debug.LogError("failed to remove pipe!");
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 }
