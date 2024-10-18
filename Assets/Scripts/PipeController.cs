@@ -15,6 +15,7 @@ public class PipeController : MonoBehaviour
     
     private static PipeController instance;
 
+    private bool isFirstPipeSpawned = false;
     public static PipeController Instance
     {
         get
@@ -52,12 +53,23 @@ public class PipeController : MonoBehaviour
         if (lastSpawn >= spawnCD)
         {
             SpawnPipes();
-            bird.currentPipe = GetNearestPipe();
+            if (!isFirstPipeSpawned)
+            {
+                bird.currentPipe = GetNearestPipe();
+                bird.currentPipe.TopPipe.GetComponent<SpriteRenderer>().color = Color.yellow;
+                isFirstPipeSpawned = true;
+            }
             lastSpawn = 0f;
         }
         else
         {
             lastSpawn += Time.deltaTime;
+        }
+
+        if (bird.currentPipe.transform.position.x <= bird.transform.position.x)
+        {
+            bird.currentPipe = GetNearestPipe();
+            bird.currentPipe.TopPipe.GetComponent<SpriteRenderer>().color = Color.yellow;
         }
     }
 
