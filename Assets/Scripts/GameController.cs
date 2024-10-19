@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
 
     public GameObject spawnPipePosition;
     public GameObject despawnPipePosition;
+    public GameObject ground;
 
     public static GameController Instance
     {

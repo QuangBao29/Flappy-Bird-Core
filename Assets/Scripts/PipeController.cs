@@ -56,7 +56,6 @@ public class PipeController : MonoBehaviour
             if (!isFirstPipeSpawned)
             {
                 bird.currentPipe = GetNearestPipe();
-                bird.currentPipe.TopPipe.GetComponent<SpriteRenderer>().color = Color.yellow;
                 isFirstPipeSpawned = true;
             }
             lastSpawn = 0f;
@@ -79,7 +78,7 @@ public class PipeController : MonoBehaviour
         {
             var newPipe = Utils.InstantiateObject<Pipe>(pipePrefab, null);
             newPipe.transform.position = GameController.Instance.spawnPipePosition.transform.position;
-            newPipe.transform.position += new Vector3(0, newPipe.transform.position.y + Utils.RandomInt(-12, 6), 0);
+            newPipe.transform.position += new Vector3(0, newPipe.transform.position.y + Random.Range(-12f, 6f), 0);
             newPipe.gameObject.SetActive(true);
             pipesList.Add(newPipe);
         }

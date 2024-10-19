@@ -11,7 +11,7 @@ public class BirdController : MonoBehaviour
     private Vector2 velocity;
     private float birdRadius;
 
-    public float groundHeight;
+    private float groundHeight;
 
     public Pipe currentPipe;
 
@@ -21,6 +21,9 @@ public class BirdController : MonoBehaviour
         float width = sprite.bounds.size.x;
         float height = sprite.bounds.size.y;
         birdRadius = Mathf.Min(width, height) / 2f;
+
+        groundHeight = GameController.Instance.ground.transform.position.y + 
+            GameController.Instance.ground.GetComponent<SpriteRenderer>().bounds.size.y/2;
     }
 
     void Update()
@@ -39,7 +42,7 @@ public class BirdController : MonoBehaviour
         transform.position += new Vector3(0, velocity.y * Time.deltaTime, 0);
 
         //check collider
-        //CheckColliderWithGround();
+        CheckColliderWithGround();
         CheckColliderWithPipes();
     }
 
@@ -47,7 +50,7 @@ public class BirdController : MonoBehaviour
     {
         if (transform.position.y - birdRadius < groundHeight)
         {
-
+            Debug.LogError("collider with ground!");
         }
     }
     
