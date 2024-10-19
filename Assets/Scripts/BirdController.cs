@@ -13,7 +13,7 @@ public class BirdController : MonoBehaviour
 
     private float groundHeight;
 
-    public Pipe currentPipe;
+    public Pipe currentPipe = null;
 
     void Start()
     {
@@ -67,14 +67,14 @@ public class BirdController : MonoBehaviour
                 birdPos.x + birdRadius <= topPipePos.x + pipeSize.x / 2 &&
                 birdPos.y + birdRadius >= topPipePos.y - pipeSize.y / 2)
             {
-                Debug.LogError("collider with top pipe");
+                //Debug.LogError("collider with top pipe");
             }
 
             if (birdPos.x + birdRadius >= botPipePos.x - pipeSize.x / 2 &&
                 birdPos.x + birdRadius <= botPipePos.x + pipeSize.x / 2 &&
                 birdPos.y - birdRadius <= botPipePos.y + pipeSize.y / 2)
             {
-                Debug.LogError("collider with bot pipe");
+                //Debug.LogError("collider with bot pipe");
             }
         }
     }

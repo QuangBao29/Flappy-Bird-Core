@@ -5,7 +5,7 @@ using UnityEngine;
 public static class Define
 {
     public static float gravityCoe = -135f;
-    public static float jumpForce = 42f;
+    public static float jumpForce = 40f;
     public static float jumpCoolDown = 0.4f;
     //time to reach max height:
     private static float t = -jumpForce / gravityCoe;

@@ -8,7 +8,10 @@ public class PipeController : MonoBehaviour
     private Pipe pipePrefab = null;
     [SerializeField]
     private BirdController bird = null;
-    public List<Pipe> pipesList = new List<Pipe>();
+    [SerializeField]
+    private ScoreController scoreController = null;
+
+    private List<Pipe> pipesList = new List<Pipe>();
 
     private float spawnCD = Define.pipeSpawnCD;
     private float lastSpawn = Define.pipeSpawnCD;
@@ -68,7 +71,7 @@ public class PipeController : MonoBehaviour
         if (bird.currentPipe.transform.position.x <= bird.transform.position.x)
         {
             bird.currentPipe = GetNearestPipe();
-            bird.currentPipe.TopPipe.GetComponent<SpriteRenderer>().color = Color.yellow;
+            scoreController.IncreaseScore();
         }
     }
 
