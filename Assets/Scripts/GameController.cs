@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class GameController : MonoBehaviour
     public GameObject spawnPipePosition;
     public GameObject despawnPipePosition;
     public GameObject ground;
+    public GameObject gameOverPanel;
+    public BirdController bird;
+    public PipeController pipeController;
 
     public static GameController Instance
     {
@@ -34,11 +38,27 @@ public class GameController : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else if (instance != this)
         {
             Destroy(gameObject);
         }
+    }
+
+    private void Start()
+    {
+        gameOverPanel.SetActive(false);
+    }
+
+    public void OnGameOverTrigger()
+    {
+        gameOverPanel.SetActive(true);
+        bird.OnSetGameOverState();
+        pipeController.OnSetGameOverState();
+    }
+
+    public void OnRestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
