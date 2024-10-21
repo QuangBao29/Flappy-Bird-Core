@@ -15,6 +15,17 @@ public class GameController : MonoBehaviour
     public BirdController bird;
     public PipeController pipeController;
     public ScoreController scoreController;
+    public GameObject startGamePanel;
+
+    private bool isGameStarted = false;
+
+    public bool IsGameStarted
+    {
+        get
+        {
+            return isGameStarted;
+        }
+    }
 
     public static GameController Instance
     {
@@ -62,5 +73,14 @@ public class GameController : MonoBehaviour
     public void OnRestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    public void OnClickPlayGame()
+    {
+        if (!isGameStarted)
+        {
+            isGameStarted = true;
+            scoreController.OnStartGame();
+            startGamePanel.SetActive(false);
+        }
     }
 }

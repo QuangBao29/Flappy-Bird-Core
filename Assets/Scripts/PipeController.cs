@@ -54,25 +54,28 @@ public class PipeController : MonoBehaviour
     }
     private void Update()
     {
-        if (lastSpawn >= spawnCD && !isGameOver)
+        if (GameController.Instance.IsGameStarted)
         {
-            SpawnPipes();
-            if (!isFirstPipeSpawned)
+            if (lastSpawn >= spawnCD && !isGameOver)
+            {
+                SpawnPipes();
+                if (!isFirstPipeSpawned)
+                {
+                    bird.currentPipe = GetNearestPipe();
+                    isFirstPipeSpawned = true;
+                }
+                lastSpawn = 0f;
+            }
+            else
+            {
+                lastSpawn += Time.deltaTime;
+            }
+
+            if (bird.currentPipe.transform.position.x <= bird.transform.position.x)
             {
                 bird.currentPipe = GetNearestPipe();
-                isFirstPipeSpawned = true;
+                scoreController.IncreaseScore();
             }
-            lastSpawn = 0f;
-        }
-        else
-        {
-            lastSpawn += Time.deltaTime;
-        }
-
-        if (bird.currentPipe.transform.position.x <= bird.transform.position.x)
-        {
-            bird.currentPipe = GetNearestPipe();
-            scoreController.IncreaseScore();
         }
     }
 

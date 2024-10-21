@@ -28,22 +28,25 @@ public class BirdController : MonoBehaviour
 
     void Update()
     {
-        //tap to fly
-        velocity.y += gravityCo * Time.deltaTime;
-        if (lastJump < jumpCD)
+        if (GameController.Instance.IsGameStarted)
         {
-            lastJump += Time.deltaTime;
-        }
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) && Time.time > jumpCD + lastJump && isBirdAlive)
-        {   
-            velocity.y = jumpForce;
-            lastJump = 0f;
-        }
-        transform.position += new Vector3(0, velocity.y * Time.deltaTime, 0);
+            //tap to fly
+            velocity.y += gravityCo * Time.deltaTime;
+            if (lastJump < jumpCD)
+            {
+                lastJump += Time.deltaTime;
+            }
+            if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) && (Time.time > jumpCD + lastJump) && isBirdAlive)
+            {
+                velocity.y = jumpForce;
+                lastJump = Time.time;
+            }
+            transform.position += new Vector3(0, velocity.y * Time.deltaTime, 0);
 
-        //check collider
-        CheckColliderWithGround();
-        CheckColliderWithPipes();
+            //check collider
+            CheckColliderWithGround();
+            CheckColliderWithPipes();
+        }
     }
 
     private void CheckColliderWithGround()

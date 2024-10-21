@@ -12,12 +12,20 @@ public class ScoreController : MonoBehaviour
 
     private int scoreCount = 0;
 
+    private void Start()
+    {
+        scoreText.gameObject.SetActive(false);
+    }
     public void IncreaseScore()
     {
         scoreCount++;
         scoreText.text = scoreCount.ToString();
     }
 
+    public void OnStartGame()
+    {
+        scoreText.gameObject.SetActive(true);
+    }
     public void OnSetGameOverState()
     {
         finalScoreText.text = "Final Score: " + scoreText.text;
