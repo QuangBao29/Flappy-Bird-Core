@@ -19,6 +19,8 @@ public class PipeController : MonoBehaviour
     private static PipeController instance;
 
     private bool isFirstPipeSpawned = false;
+    private bool isGameOver = false;
+
     public static PipeController Instance
     {
         get
@@ -40,7 +42,6 @@ public class PipeController : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else if (instance != this)
         {
@@ -53,7 +54,7 @@ public class PipeController : MonoBehaviour
     }
     private void Update()
     {
-        if (lastSpawn >= spawnCD)
+        if (lastSpawn >= spawnCD && !isGameOver)
         {
             SpawnPipes();
             if (!isFirstPipeSpawned)
@@ -114,5 +115,14 @@ public class PipeController : MonoBehaviour
             }
         }
         return nearestPipe;
+    }
+
+    public void OnSetGameOverState()
+    {
+        isGameOver = true;
+        foreach (var pipe in pipesList)
+        {
+            pipe.OnSetGameOverState();
+        }
     }
 }

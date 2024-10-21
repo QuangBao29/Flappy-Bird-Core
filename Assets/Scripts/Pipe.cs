@@ -20,9 +20,11 @@ public class Pipe : MonoBehaviour
     public Sprite PipeSprite
     { get { return pipeSprite; } }
 
+    private float pipeSpeed = Define.pipeSpeed;
+
     void Update()
     {
-        transform.position += new Vector3(-Define.pipeSpeed * Time.deltaTime, 0, 0);
+        transform.position += new Vector3(-pipeSpeed * Time.deltaTime, 0, 0);
 
         if (transform.position.x <= GameController.Instance.despawnPipePosition.transform.position.x)
         {
@@ -35,5 +37,10 @@ public class Pipe : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+    }
+
+    public void OnSetGameOverState()
+    {
+        pipeSpeed = 0f;
     }
 }

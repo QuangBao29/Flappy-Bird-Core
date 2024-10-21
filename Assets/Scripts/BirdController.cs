@@ -10,8 +10,8 @@ public class BirdController : MonoBehaviour
     private float lastJump = 0f;
     private Vector2 velocity;
     private float birdRadius;
-
     private float groundHeight;
+    private bool isBirdAlive = true;
 
     public Pipe currentPipe = null;
 
@@ -34,7 +34,7 @@ public class BirdController : MonoBehaviour
         {
             lastJump += Time.deltaTime;
         }
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) && Time.time > jumpCD + lastJump)
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) && Time.time > jumpCD + lastJump && isBirdAlive)
         {   
             velocity.y = jumpForce;
             lastJump = 0f;
@@ -50,7 +50,7 @@ public class BirdController : MonoBehaviour
     {
         if (transform.position.y - birdRadius < groundHeight)
         {
-            Debug.LogError("collider with ground!");
+            GameController.Instance.OnGameOverTrigger();
         }
     }
     
@@ -67,15 +67,22 @@ public class BirdController : MonoBehaviour
                 birdPos.x + birdRadius <= topPipePos.x + pipeSize.x / 2 &&
                 birdPos.y + birdRadius >= topPipePos.y - pipeSize.y / 2)
             {
-                //Debug.LogError("collider with top pipe");
+                GameController.Instance.OnGameOverTrigger();
             }
 
             if (birdPos.x + birdRadius >= botPipePos.x - pipeSize.x / 2 &&
                 birdPos.x + birdRadius <= botPipePos.x + pipeSize.x / 2 &&
                 birdPos.y - birdRadius <= botPipePos.y + pipeSize.y / 2)
             {
-                //Debug.LogError("collider with bot pipe");
+                GameController.Instance.OnGameOverTrigger();
             }
         }
+    }
+
+    public void OnSetGameOverState()
+    {
+        isBirdAlive = false;
+        velocity.y = 0f;
+        gravityCo = 0f;
     }
 }
