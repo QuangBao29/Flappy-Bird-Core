@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour
     public GameObject gameOverPanel;
     public BirdController bird;
     public PipeController pipeController;
+    public ScoreController scoreController;
 
     public static GameController Instance
     {
@@ -55,6 +56,7 @@ public class GameController : MonoBehaviour
         gameOverPanel.SetActive(true);
         bird.OnSetGameOverState();
         pipeController.OnSetGameOverState();
+        scoreController.OnSetGameOverState();
     }
 
     public void OnRestartGame()
